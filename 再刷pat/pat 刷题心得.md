@@ -180,8 +180,119 @@ int n, minn = INT_MAX, maxn = INT_MIN;
 ###  **1010** **Radix** 
 
 ```
-1.  进行 进制转换处理
+思路 : 制转换
+section1 convert
+1.for (auto it = n.rbegin(); it != n.rend(); it++)  // 进行string的倒序输出
+2. sum += temp * pow(radix, index++); //  进行乘以一定数量的指数幂
+3. 进行进制转化的结果返回 
+section2  search 
+1. 找到最大的元素 char it = *max_element(n.begin(), n.end());
+2. 二分查找 
+ while (low <= high) {
+        long long mid = (low + high) / 2;
+        long long t = convert(n, mid);
+        if (t < 0 || t > num) high = mid - 1;
+        else if (t == num) return mid;
+        else low = mid + 1;
+    }
+  3. 返回对应的结果
+  section3  变量的命名和输入输出数据的处理 
+  1. 使用 long long 的数据类型
+2. 简单的if else  使用3目运算符进行取代
+```
 
+###  **1011** **World Cup Betting** 
 
+```
+思路: 找到对应的路径的各个节点的最大值 ，带入数据
+1. 使用3次流式输入 避免数据存储和多进行的for循环
+2. .2f 或者有乘法的运算使用double 进行数据的存储操作
+3. char c[4] = {"WTL"};  // 对应映射的结果进行输出
+
+```
+
+###  **1012** **The Best Rank** 
+
+```
+ 进行 排序获得 各自对应成绩的最大值 ，如果最好的成绩是相同的，输出优先级较高的
+ //  使用结构体对排序的操作进行处理
+ 1. 排序？？使用 自定义的全局变量 ，对数组中的排序规则进行改变
+ sorce[flag]; 可以进行判刑规则的扩展
+ 2.   进行全局 定义数组 还是 n规模的数据进行固定 数组排序操作，然后添加查找映射关系
+  &stu[i].id  //  不是使用stu[id] ，使用 visit[id] 来进行对应的 i 的数据查找操作,减少进行排序时的比较规模
+ 3.bool cmp1(node a, node b) {return a.score[flag] > b.score[flag];}
+ 排序的规则
+ 4.struct node {
+    int id, best;
+    int score[4], rank[4];
+}stu[2005];
+//  使用的结构体
+5. char c[5] = {'A', 'C', 'M', 'E'}; // 获得输出的 对应映射类型  ，用上面的方式更快
+6.stu[i].score[0] = (stu[i].score[1] + stu[i].score[2] + stu[i].score[3]) / 3.0 + 0.5; // 对int的数据进行四舍五入  
+```
+
+###  **1013** **Battle Over Cities** 
+
+```
+ 进行节点的删除操作，获得孤立的节点的数量 
+  进行节点的删除查询是否所有的节点都可以访问到的dfs搜索问题
+ // 目前我是这么理解的
+ 本题的难点在于使用visit 的dfs 搜索 ，进行搜索操作的搜索边界在哪里，如何从上一步搜索到达下一步搜索, 节点不可访问的确定
+ 1.   fill(visit, visit + 1010, false);  进行清空操作
+ 2. void dfs(int node) {
+    // 实际的搜索操作
+    visit[node] = true;
+    for(int i = 1; i <= n; i++) {
+            //对没有进行标记过的节点进行搜索操作
+        if(visit[i] == false && v[node][i] == 1)
+            dfs(i);
+    }
+}
+dfs 操作处理
+ 
+```
+
+###  **1014** **Waiting in Line** 
+
+```
+结构体进行数据的模拟操作   并计算出每一个个体所花的时间
+
+  思路 ，先将队列 排满 ，然后对空闲出来的元素进行填充操作 ，找出当前队列最小的元素，进行出队，入队操作
+  1.把一个窗口看成一个结构体，对窗口的数据进行维护，入队 和出队，入队时间(上一个节点出去了)和最晚出队时间(对时间进行累加操作)
+  2. 定义结构体 
+  struct node {
+    int poptime, endtime; // poptime   上一个元素出队时间 endtime 窗口内所有元素结束时间
+    queue<int> q;// m个元素的队列
+};
+3.对初始的n*m个元素进行入队操作
+4. 对剩余的元素进行操作
+   - 找到出队时间最早的元素
+   - 对 队列中的第一个元素进行出队操作
+          window[tempwindow].q.pop();// 弹出
+        window[tempwindow].q.push(time[index]);、、添加
+        window[tempwindow].poptime +=  window[tempwindow].q.front()//时间更新
+ 5. 进行遍历对结果进行输出
+ 使用一个合理的结构对数据进行操作的意义大于 维护多个变量 ，对元素进行遍历操作
+ 
+   vector<bool> sorry(k + 1, false); // 用于判断元素是否超时
+ 
+```
+
+###  **1015** **Reversible Primes** 
+
+```
+1.  一个进行的转化操作和进行是否是质数的操作的拼接
+错误的理解了题目的意思 ，这个数 进行 r 进行的反转操作 需要先转换成对应进行的数，然后进行反转操作
+2.  bool isprime(int n) {
+    if(n <= 1) return false;
+    int sqr = int(sqrt(n * 1.0));
+    for(int i = 2; i <= sqr; i++) {
+        if(n % i == 0)
+            return false;
+    }
+    return true;
+}
+ 判断一个数是否为质数
+ 3. 简单的进制转化操作
 ```
 
